@@ -1,10 +1,4 @@
-// import PropTypes from 'prop-types';
-
-// Post.propTypes = {
-//   author: PropTypes.string.isRequired,
-//   content: PropTypes.string.isRequired
-// };
-
+import { Avatar } from '../avatar/avatar';
 import { Comment } from '../comment/comment';
 
 import styles from './post.module.css';
@@ -14,10 +8,8 @@ export function Post() {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <img 
-            className={styles.avatar}
-            src="https://media.licdn.com/dms/image/v2/D4D03AQHKK-0oLFhn8g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1678415489082?e=1744848000&v=beta&t=tUlOO1m2MstZrVbEGWRPxANVDbWMGXYZO8KQYCkbt9w"
-          />
+          <Avatar src="https://media.licdn.com/dms/image/v2/D4D03AQHKK-0oLFhn8g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1678415489082?e=1744848000&v=beta&t=tUlOO1m2MstZrVbEGWRPxANVDbWMGXYZO8KQYCkbt9w" />
+          
           <div className={styles.authorInfo}>
             <strong>Joás Vieira</strong>
             <span>Software Developer</span>

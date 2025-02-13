@@ -1,3 +1,5 @@
+import { Avatar } from '../avatar/avatar'
+
 import { PencilLine } from 'phosphor-react'
 
 import styles from './sidebar.module.css'
@@ -11,10 +13,7 @@ export function Sidebar () {
       />
 
       <div className={styles.profile}>
-        <img 
-          className={styles.avatar}
-          src="https://media.licdn.com/dms/image/v2/D4D03AQHKK-0oLFhn8g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1678415489082?e=1744848000&v=beta&t=tUlOO1m2MstZrVbEGWRPxANVDbWMGXYZO8KQYCkbt9w" 
-        />
+        <Avatar src="https://media.licdn.com/dms/image/v2/D4D03AQHKK-0oLFhn8g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1678415489082?e=1744848000&v=beta&t=tUlOO1m2MstZrVbEGWRPxANVDbWMGXYZO8KQYCkbt9w" />
 
         <strong>Joás Vieira</strong>
         <span>Software Developer</span>
