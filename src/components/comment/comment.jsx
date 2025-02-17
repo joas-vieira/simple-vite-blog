@@ -2,9 +2,15 @@ import { ThumbsUp, Trash } from 'phosphor-react';
 
 import { Avatar } from '../avatar/avatar';
 
+import PropTypes from 'prop-types';
+
 import styles from './comment.module.css';
 
-export function Comment() {
+Comment.propTypes = {
+  content: PropTypes.string.isRequired,
+};
+
+export function Comment({ content }) {
   return (
     <div className={styles.comment}>
       <Avatar hasBorder={false} src="https://media.licdn.com/dms/image/v2/D4D03AQHKK-0oLFhn8g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1678415489082?e=1744848000&v=beta&t=tUlOO1m2MstZrVbEGWRPxANVDbWMGXYZO8KQYCkbt9w" />
@@ -22,7 +28,7 @@ export function Comment() {
             </button>
           </header>
 
-          <p>Muito bom Devon, parabéns!! 👏👏</p>
+          <p>{content}</p>
         </div>
 
         <footer>
