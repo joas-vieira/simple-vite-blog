@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 import styles from './avatar.module.css';
 
-
 Avatar.propTypes = {
   src: PropTypes.string.isRequired,
   hasBorder: PropTypes.bool,

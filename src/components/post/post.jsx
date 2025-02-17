@@ -1,33 +1,61 @@
+import { format, formatDistanceToNow } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 import { Avatar } from '../avatar/avatar';
 import { Comment } from '../comment/comment';
 
+import PropTypes from 'prop-types';
+
 import styles from './post.module.css';
 
-export function Post() {
+Post.propTypes = {
+  author: PropTypes.shape({
+    avatarUrl: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+  }).isRequired,
+  content: PropTypes.arrayOf(PropTypes.shape({
+    type: PropTypes.oneOf(['paragraph', 'link']).isRequired,
+    content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
+  })).isRequired,
+  publishedAt: PropTypes.instanceOf(Date).isRequired,
+};
+
+export function Post({ author, content, publishedAt }) {
+  const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
+    locale: ptBR
+  });
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBR,
+    addSuffix: true
+  });
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src="https://media.licdn.com/dms/image/v2/D4D03AQHKK-0oLFhn8g/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1678415489082?e=1744848000&v=beta&t=tUlOO1m2MstZrVbEGWRPxANVDbWMGXYZO8KQYCkbt9w" />
+          <Avatar src={author.avatarUrl}/>
           
           <div className={styles.authorInfo}>
-            <strong>Joás Vieira</strong>
-            <span>Software Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.name}</span>
           </div>
         </div>
 
-        <time title='12 de Fevereiro ás 20:37h' dateTime="2025-02-12 19:37:00">Publicado há 1h</time>
+        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>Publicado {publishedDateRelativeToNow}</time>
       </header>
 
       <div className={styles.content}>
-        <p>Fala galeraa 👋</p>
-        <p>Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀</p>
-        <p><a href="#">jane.design/doctorcare</a></p>
-        <p>
-          <a href="#">#novoprojeto</a>{' '}
-          <a href="#">#nlw</a>{' '}
-          <a href="#">#rocketseat</a>
-        </p>
+        {content.map((line, index) => {
+          if (line.type === 'paragraph') {
+            return <p key={index}>{line.content}</p>
+          }
+
+          if (line.type === 'link') {
+            return <p key={index}>{line.content}</p>
+          }
+        })}
       </div>
 
       <form className={styles.commentForm}>
