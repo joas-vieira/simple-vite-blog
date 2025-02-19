@@ -7,40 +7,48 @@ import styles from './post.module.css';
 import { PostType } from '../../contracts/post';
 
 interface PostProps {
-  post: PostType
+  post: PostType;
 }
 
 export function Post({ post: { author, content, publishedAt } }: PostProps) {
-  const [comments, setComments] = useState(['Muito bom Devon, parabéns!! 👏👏']);
+  const [comments, setComments] = useState([
+    'Muito bom Devon, parabéns!! 👏👏'
+  ]);
   const [newComment, setNewComment] = useState('');
 
-  const publishedDateFormatted = format(publishedAt, "dd 'de' LLLL 'às' HH:mm'h'", {
-    locale: ptBR
-  });
+  const publishedDateFormatted = format(
+    publishedAt,
+    "dd 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: ptBR
+    }
+  );
 
   const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
     locale: ptBR,
     addSuffix: true
   });
 
-  function handleCreateNewComment (event: FormEvent) {
+  function handleCreateNewComment(event: FormEvent) {
     event.preventDefault();
 
     setComments([...comments, newComment]);
     setNewComment('');
-  };
-
-  function handleNewCommentChange (event: ChangeEvent<HTMLTextAreaElement>) {
-    event.target.setCustomValidity('');
-    setNewComment(event.target.value)
   }
 
-  function handleNewCommentInvalid (event: InvalidEvent<HTMLTextAreaElement>) {
+  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
+    event.target.setCustomValidity('');
+    setNewComment(event.target.value);
+  }
+
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('Por favor, preencha o campo de comentário');
   }
 
-  function deleteComment (commentToDelete: string) {
-    const commentsWithoutDeleted = comments.filter(comment => comment !== commentToDelete);
+  function deleteComment(commentToDelete: string) {
+    const commentsWithoutDeleted = comments.filter(
+      (comment) => comment !== commentToDelete
+    );
 
     setComments(commentsWithoutDeleted);
   }
@@ -51,27 +59,30 @@ export function Post({ post: { author, content, publishedAt } }: PostProps) {
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar src={author.avatarUrl}/>
-          
+          <Avatar src={author.avatarUrl} />
+
           <div className={styles.authorInfo}>
             <strong>{author.name}</strong>
             <span>{author.name}</span>
           </div>
         </div>
 
-        <time title={publishedDateFormatted} dateTime={publishedAt.toISOString()}>
+        <time
+          title={publishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
+        >
           Publicado {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className={styles.content}>
-        {content.map(line => {
+        {content.map((line) => {
           if (line.type === 'paragraph') {
-            return <p key={line.content}>{line.content}</p>
+            return <p key={line.content}>{line.content}</p>;
           }
 
           if (line.type === 'link') {
-            return <p key={line.content}>{line.content}</p>
+            return <p key={line.content}>{line.content}</p>;
           }
         })}
       </div>
@@ -88,19 +99,21 @@ export function Post({ post: { author, content, publishedAt } }: PostProps) {
         />
 
         <footer>
-          <button type="submit" disabled={isNewCommentEmpty}>Publicar</button>
+          <button type="submit" disabled={isNewCommentEmpty}>
+            Publicar
+          </button>
         </footer>
       </form>
 
       <div className={styles.commentList}>
-        {comments.map(comment => (
-          <Comment 
-            key={comment} 
+        {comments.map((comment) => (
+          <Comment
+            key={comment}
             content={comment}
             onDeleteComment={deleteComment}
           />
         ))}
       </div>
     </article>
-  )
+  );
 }

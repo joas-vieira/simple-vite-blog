@@ -1,5 +1,5 @@
-import { AuthorType } from "./author";
-import { ContentType } from "./content";
+import { AuthorType } from './author';
+import { ContentType } from './content';
 
 export interface PostType {
   id: number;
