@@ -1,28 +1,16 @@
-import { useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
-
+import { ptBR } from 'date-fns/locale/pt-BR';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 import { Avatar } from '../avatar/avatar';
 import { Comment } from '../comment/comment';
-
-import PropTypes from 'prop-types';
-
 import styles from './post.module.css';
+import { PostType } from '../../contracts/post';
 
-Post.propTypes = {
-  author: PropTypes.shape({
-    avatarUrl: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
-  }).isRequired,
-  content: PropTypes.arrayOf(PropTypes.shape({
-    type: PropTypes.oneOf(['paragraph', 'link']).isRequired,
-    content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-  })).isRequired,
-  publishedAt: PropTypes.instanceOf(Date).isRequired,
-};
+interface PostProps {
+  post: PostType
+}
 
-export function Post({ author, content, publishedAt }) {
+export function Post({ post: { author, content, publishedAt } }: PostProps) {
   const [comments, setComments] = useState(['Muito bom Devon, parabéns!! 👏👏']);
   const [newComment, setNewComment] = useState('');
 
@@ -35,23 +23,23 @@ export function Post({ author, content, publishedAt }) {
     addSuffix: true
   });
 
-  function handleCreateNewComment (event) {
+  function handleCreateNewComment (event: FormEvent) {
     event.preventDefault();
 
     setComments([...comments, newComment]);
     setNewComment('');
   };
 
-  function handleNewCommentChange (event) {
+  function handleNewCommentChange (event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('');
     setNewComment(event.target.value)
   }
 
-  function handleNewCommentInvalid (event) {
+  function handleNewCommentInvalid (event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('Por favor, preencha o campo de comentário');
   }
 
-  function deleteComment (commentToDelete) {
+  function deleteComment (commentToDelete: string) {
     const commentsWithoutDeleted = comments.filter(comment => comment !== commentToDelete);
 
     setComments(commentsWithoutDeleted);
