@@ -1,8 +1,25 @@
-# React + Vite
+# Simple Vite Blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple blog built with Vite during Rocketseat's course
+## Installation
 
-Currently, two official plugins are available:
+```bash
+# Clone the repository
+https://github.com/joas-vieira/simple-vite-blog.git
+git@github.com:joas-vieira/simple-vite-blog.git
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# Navigate into the project folder
+cd simple-vite-blog
+```
+
+## How to Use
+
+```bash
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+```
+
+After starting the development server, open [http://localhost:5173](http://localhost:5173) in your browser.
